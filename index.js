@@ -1,5 +1,4 @@
 const express = require('express');
-//to hash the pasword with bcrypt
 require('dotenv').config();
 const bcrypt = require("bcrypt");
 const saltRounds = 12;
@@ -8,9 +7,8 @@ const session = require('express-session');
 const MongoStore = require('connect-mongo');
 const {Store} = require('express-session');
 const app = express();
-//in-memory database
 var users = [];
-const expireTime = 1 * 60 * 60 * 1000; // expires after an hour (hour *min *second* millis)
+const expireTime = 1 * 60 * 60 * 1000;
 const mongodb_user = process.env.MONGODB_USER;
 const mongodb_password = process.env.MONGODB_PASSWORD;
 const node_session_secret = process.env.NODE_SESSION_SECRET;
@@ -33,8 +31,6 @@ app.use(session({
 }
 ));
 
-
-//This is for the source?
 app.use(express.static(__dirname+"/public"));
 
 app.get('/', (req,res) => {
@@ -73,9 +69,7 @@ app.get("/contact", (req,res) =>{
         </input><button>Submit</button>
     </form>
     `;
-    // script form, ajax call
     if (missingEmail) {
-        //br = line breaker 
         html += "<br>email is requred"
     }
     res.send(html);
@@ -92,8 +86,6 @@ app.post('/submitEmail', (req,res)=>{
 });
 
 app.get('/createUser', (req,res)=>{
-    // var missingName = req.query.missingName;
-    // var missingPassword = req.query.missingPassword;
     var html = `
     create user
     <form action='/submitUser' method='post'>
@@ -102,13 +94,6 @@ app.get('/createUser', (req,res)=>{
     <button>Submit</button>
     </form>
     `;
-    // if (missingName) {
-    //     //br = line breaker 
-    //     html += "<br>email is required"
-    // };
-    // if (missingPassword){
-    //     html += "<br>password is required"
-    // };
     res.send(html);
 });
 
@@ -177,8 +162,6 @@ app.post('/submitUser', (req, res) => {
 });
 
 
-
-//should be at the bottom to avoid interrupting other pages
 app.get("*", (req,res) => {
     res.status(404);
     res.send("Page not found - 404");
