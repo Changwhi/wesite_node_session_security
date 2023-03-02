@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<%-include("templates/header") %>
+    ADMIN PAGE
+    <br>
+    Hello <%=name%>. You are logged in!
+    <br>
+    <img src='/socks.gif' style='width:250px;'>
+    <br>
+    <form action="/loggedin/admin/userlist" method="get">
+    <button>Go to user list</button>
+    </form>
+    <br>
+    
+
+    <form action="/logout" method="post">
+    <button>Log out</button>
+    </form>
+<%-include("templates/footer") %>

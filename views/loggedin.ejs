@@ -1,13 +1,27 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    You are logged in!
-</body>
-</html>
+<%-include("templates/header") %>
+    <h3>Main page</h3>
+    Hello <%=name%>. You are logged in!
+    <br>
+    <%ranNumber = Math.floor(Math.random() * (4-1)+1);%>
+    <%console.log(ranNumber)%>
+    <%if (ranNumber == 1) {%>
+    <img src='/spongebob.png' style='width:250px;'>
+    <%} else if (ranNumber == 2) {%>
+    <img src='/krabs.png' style='width:250px;'>
+    <%} else { %>
+    <img src='/pearl.png' style='width:250px;'>
+    <%};%>
+    <br>
+    <form action="/loggedin/memberInfo/1" method="get">
+    <button>Go to Todo list</button>
+    </form>
+    
+    <br>
+    
+    <form action="/logout" method="post" placeholder="Enter the todo">
+    <button>Log out</button>
+    </form>
+<%-include("templates/footer") %>

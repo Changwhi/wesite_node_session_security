@@ -1,0 +1,30 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<%-include("templates/header") %>
+
+<%- include("templates/header", {scripts: ["https://code.jquery.com/jquery-3.6.3.js","/script.js"]}) %> 
+    <h1>Hello <%= username %><% if (user_type=='admin') { %><%= " (admin)" %><% } %>!</h1>
+    <div>
+        TODO list!
+        (This page has javascript, jquery and AJAX!) 
+    </div>
+    <form action='/loggedin/createtodo' method='post'>
+        <input name='todos' type='text'>
+        <button>ADD</button>
+    </form>
+    
+    <form action="/loggedin" method="get">
+        <button>Go back to main menu</button>
+    </form>
+
+    <% if (locals.missing) { %>
+        <br> Please enter the todo.
+    <% } %>  
+    <br>Todo list:
+
+    <div id="dynamic_content">
+        <img src="/Spinner.gif">
+    </div>
+<%- include("templates/footer") %> 
+

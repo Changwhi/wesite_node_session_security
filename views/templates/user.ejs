@@ -1,2 +1,4 @@
 
-<li> <%= user.username %>: <%= user.password %> </li>
+<!-- Templates for any repeated blocks of code -->
+<!-- when looping over items returned from a databse resultset -->
+<li> <a href="/loggedin/memberInfo/<%= user.email%>"><%= user.username %></a></li>
