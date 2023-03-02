@@ -20,7 +20,7 @@ const {Store} = require('express-session');
 const { json } = require('body-parser');
 const { response } = require('express');
 const app = express();
-const expireTime = 60 * 60;
+const expireTime = 60 * 60 * 1000;
 const mongodb_user = process.env.MONGODB_USER;
 const mongodb_password = process.env.MONGODB_PASSWORD;
 const node_session_secret = process.env.NODE_SESSION_SECRET;
@@ -186,11 +186,12 @@ app.post('/loggingin', async (req,res)=>{
 
             return
         }
-    } 
+    }else{
     console.log('user not found');           
     // user and password combination not found
             res.redirect('/login', {error:1});
-});
+    }
+        });
 
 // step1 : To check authentication using middleware (in this code, middleware is seesion?)
 // * authentication vs authorization
@@ -219,6 +220,7 @@ function isAdmin(req) {
         return true;
     }
     return false;
+    
 }
 function adminAuthorization(req,res,next) {
     if (!isAdmin(req)) {
@@ -240,7 +242,6 @@ app.use('/loggedin/admin', adminAuthorization);
 app.get('/loggedIn', (req,res)=>{
     var name=req.session.username;
     var type = req.session.user_type;
- 
     if (type == 'admin'){
         res.redirect('/loggedin/admin')
     }
@@ -316,12 +317,14 @@ app.post('/submitUser', async (req, res) => {
 app.get('/api', async (req,res) => {
 
     
-    var user_id = req.session.user_id;
-    var user_type = req.session.user_type;
-    
-    if (isAdmin) {
+    if (isAdmin(req)) {
+        console.log("you here?")
         var user_id = user_id_global;
         var user_type = user_type_global;
+    }else{
+        console.log("or here?")
+    var user_id = req.session.user_id;
+    var user_type = req.session.user_type;
     }
     console.log('api hit')
 

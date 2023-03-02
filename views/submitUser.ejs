@@ -12,6 +12,7 @@
     
         <!-- <form action="/loggedin/memberInfo" method="get"> -->
         <hr> User list
+        <%console.log("herehere")%>
 		<% for(i=0; i < users.length; i++) { %>
         <%- include('templates/user', {user: users[i]})  %> 
         <% } %>
