@@ -2,7 +2,6 @@ const express = require('express');
 require('./utils')
 require('dotenv').config();
 // MySQL
-const database = include("databaseConnection");
 const db_utils = include("/database/db_utils");
 const success = db_utils.printMySQLVersion();
 //MySQL user 
@@ -13,6 +12,8 @@ const db_todo = include('database/todo')
 const bcrypt = require("bcrypt");
 const saltRounds = 12;
 const port = process.env.PORT || 3000;
+
+const database = include("databaseConnection");
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
 const {Store} = require('express-session');
